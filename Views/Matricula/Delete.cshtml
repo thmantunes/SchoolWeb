@@ -1,0 +1,18 @@
+﻿@model School.Models.Matricula
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<h3>@ViewData["Disciplina"]</h3>
+<hr />
+<h5>Confirme Cancelamento da Matrícula?</h5>
+<div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MatriculaId" />
+        <input type="submit" value="Cancelar Matrícula" class="btn btn-danger btn-sm" /> |
+        <a asp-action="Index">Retornar</a>
+    </form>
+</div>

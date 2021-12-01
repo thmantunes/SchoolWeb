@@ -1,0 +1,84 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@model IEnumerable<School.ViewModels.TurmaViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h3>@ViewData["Disciplina"]</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Turma
+            </th>
+            <th>
+                Professor
+            </th>
+            <th>
+                Horarios
+            </th>
+            <th>
+                Vagas
+            </th>
+            <th>
+                Disponiveis
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeTurma)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeProfessor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HorariosTurma)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroVagas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroVagasDisponiveis)
+            </td>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                @if (User.IsInRole("Aluno"))
+                {
+                    <td>
+                        <form method="post">
+                            @if (@item.NroVagasDisponiveis == 0)
+                            {
+                                <input type="submit" value="Efetuar Matrícula"
+                                       class="btn btn-dark btn-sm" asp-controller="Matricula" asp-action="EfetuarMatricula" asp-route-TurmaId="@item.TurmaId"
+                                       disabled="disabled" />
+                            }
+                            else {
+                                if (@item.Conflito) {
+                                        <input type="submit" value="Conflito de Horário"
+                                               class="btn btn-danger btn-sm" asp-controller="" asp-action="" asp-route-TurmaId=""
+                                               disabled="disabled" />
+                                }
+                                else {
+                                            <input type="submit" value="Efetuar Matrícula"
+                                                   class="btn btn-primary btn-sm" asp-controller="Matricula" asp-action="EfetuarMatricula" asp-route-TurmaId="@item.TurmaId" />
+                                    }
+                                }
+                            | <a asp-controller="Disciplinas" asp-action="Index">Retornar</a>
+                        </form>
+                    </td>
+
+                }
+        }
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<School.ViewModels.RelatorioAlunosViewModel>
+<div>
+    <h2>Relatorio de Alunos Matriculados</h2>
+    <hr/>
+</div>
+<p>
+    @*("Index", "Customers", FormMethod.Get)*@
+    @using (Html.BeginForm((FormMethod.Get)))
+    {
+        <text>Disciplina: </text>@Html.DropDownList("disciplina", new SelectList(ViewBag.Disciplinas))
+        <input type="submit" value="Procurar" />
+    }
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeAluno)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <form>
+        <input type="submit" value="Imprimir"
+               class="btn btn-info btn-sm" asp-controller="" asp-action="" asp-route-TurmaId="" onClick="window.print()" /> |
+        <a asp-controller="Home" asp-action="Index">Retornar</a>
+    </form>
+</div>

@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@model IEnumerable<School.ViewModels.MatriculaViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <div>
+        <h3>Disciplinas Matriculadas</h3>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <form method="post">
+                <td>
+                    <div>
+                        @if (ViewData["Status"] != "Efetivada")
+                        {
+                            <a asp-controller="Disciplinas" asp-action="Index">Selecionar Disciplinas</a>
+                        }
+                        |
+                    </div>
+                </td>
+                <td>
+                    @if (ViewData["Status"] != "Efetivada")
+                    {
+                        @if (!ViewData["NroDisciplinas"].Equals(0) )
+                        {
+                            <div>
+                                <input type="submit" value="Finalizar Matrícula" 
+                                       class="btn btn-success btn-sm" asp-controller="Matricula" asp-action="FinalizarMatricula" asp-route-userId="" />
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                        <div>
+                            <input type="submit" value="Emitir Comprovante" 
+                                   class="btn btn-info btn-sm" asp-controller="Matricula" asp-action="Comprovante" asp-route-userId="" />
+                        </div>
+                    }
+                </td>
+                </form>
+            </tr>
+        </table>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Turma
+            </th>
+            <th>
+                Disciplina
+            </th>
+            <th>
+                Nome
+            </th>
+            <th>
+                Horários
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TurmaNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisciplinaCodigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisciplinaNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horarios)
+                </td>
+                <td>
+                    @if (ViewData["Status"] != "Efetivada")
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.MatriculaId">Cancelar Matrícula</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

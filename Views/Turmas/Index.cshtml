@@ -1,0 +1,75 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<School.ViewModels.TurmaViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Aluno"))
+{
+    <h3>Turmas Elegíveis</h3>
+}
+else
+{
+    <h3 >Turmas</h3 >
+
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Turma
+            </th>
+            <th>
+                Professor
+            </th>
+            <th>
+                Disciplina
+            </th>
+            <th>
+                Horários
+            </th>
+            <th>
+                Vagas
+            </th>
+            <th>
+                Disponíveis
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeTurma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeProfessor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disciplina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HorariosTurma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NroVagas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NroVagasDisponiveis)
+                </td>
+                <td>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrador"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.TurmaId">Edit</a>
+                     }
+                </td >
+
+            </tr>
+                  }
+</tbody>
+</table>

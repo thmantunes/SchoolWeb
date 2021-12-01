@@ -1,0 +1,71 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@model IEnumerable<School.Models.Disciplina>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Aluno"))
+{
+    <h3> Disciplinas Elegíveis</h3>
+}
+else
+{
+    <h3> Disciplinas</h3>
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DisciplinaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creditos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dependencia)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisciplinaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creditos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dependencia)
+            </td>
+            @*Se o usuário esta logado exibir o link de logout*@
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Aluno"))
+            {
+            @if (ViewData["Status"] as string != "Efetivada")
+            {
+                <td>
+                    <a asp-area="" asp-controller="Matricula" asp-route-id="@item.DisciplinaId" asp-action="Turmas">Matricular</a>
+                </td>
+            }
+            }
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrador"))
+            {
+                <td>
+                    <a asp-area="" asp-controller="Disciplinas" asp-route-id="@item.DisciplinaId" asp-action="Edit">Editar</a>
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

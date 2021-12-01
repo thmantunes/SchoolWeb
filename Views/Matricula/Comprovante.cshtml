@@ -1,0 +1,60 @@
+﻿@model IEnumerable<School.ViewModels.MatriculaViewModel>
+<table>
+    <tr>
+        <div>
+            <h2>Comprovante de Matrícula</h2>
+        </div>
+        <hr />
+    </tr>
+    <tr>
+        <div>
+            <h2>Matrícula Efetivada em @ViewData["Data"]</h2>
+        </div>
+        <hr />
+    </tr>
+    <tr>
+        <h2>Aluno: @ViewData["Aluno"]</h2>
+        <hr />
+    </tr>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Turma
+            </th>
+            <th>
+                Disciplina
+            </th>
+            <th>
+                Nome
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TurmaNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisciplinaCodigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisciplinaNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horarios)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div          
+    <form>
+        <input type="submit" value="Imprimir"
+               class="btn btn-info btn-sm" asp-controller="" asp-action="" asp-route-TurmaId="" onClick="window.print()" /> |
+        <a asp-controller="Home" asp-action="Index">Retornar</a>
+    </form>
+</div>

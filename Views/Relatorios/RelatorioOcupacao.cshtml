@@ -1,0 +1,49 @@
+﻿@model IEnumerable<School.ViewModels.RelatorioOcupacaoViewModel>
+<div>
+<h2>Relatório Percentual de Ocupação por Disciplina e Turma</h2>
+</div>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Turma
+            </th>
+            <th>
+                Disciplina
+            </th>
+            <th>
+                Vagas
+            </th>
+            <th>
+                Ocupação
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeTurma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disciplina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NroVagas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ocupacao)%
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div          
+    <form>
+        <input type="submit" value="Imprimir"
+               class="btn btn-info btn-sm" asp-controller="" asp-action="" asp-route-TurmaId="" onClick="window.print()" /> |
+        <a asp-controller="Home" asp-action="Index">Retornar</a>
+    </form>
+</div>

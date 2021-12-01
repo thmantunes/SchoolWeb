@@ -1,0 +1,45 @@
+Criação do projeto segundo a arquitetura limpa
+criar o projeto no Visual Studio de forma a estruturar a solução
+definir o modelo de dados 
+realizar a criação do banco de dados utilizando o EF (abordagem code-first)
+inicializar o banco de dados de forma a poder testar
+Usuários logados no sistema devem poder
+
+visualizar seu histórico
+O sistema deve permitir as seguintes consultas para todos usuários
+listar turmas e seus horários (permitir o uso de filtros por nome, código ou horários)
+
+Usuários logados no sistema devem poder
+visualizar as turmas/horários que ele pode se matricular (apenas as que estão liberadas)
+solicitar matrícula em uma turma
+o sistema deve verificar se ainda há vagas na turma solicitada
+o sistema deve verificar se não há conflito de horários
+
+o sistema não deve permitir matricular em duas turmas de uma mesma disciplina (mesmo em horários diferentes)
+visualizar a sua grade de horários
+cancelar matrícula em alguma disciplina (turma)
+
+
+
+
+O sistema deve permitir os seguintes casos de uso por parte dos alunos do curso (quando logados):
+(ok) • Visualizar disciplinas, turmas e vagas disponíveis para sua matrícula.
+
+(ok) • Solicitar matrícula em disciplina, se a vaga ainda estiver disponível o aluno estará matriculado na disciplina,
+caso contrário o aluno é notificado que não há mais vagas
+
+(ok) • Cancelar matrícula em disciplina.
+• Gera um comprovante de matrícula (em formato html ou pdf).
+
+O sistema deve permitir os seguintes casos de uso por parte do coordenador de curso:
+• Gerar relatório contendo o percentual de ocupação de cada uma das disciplinas do curso, por turmas.
+• Gerar relatório com alunos matriculados em uma determinada disciplina.
+• Gerar relatório com número total de alunos matriculados e o número médio de créditos matriculados.
+• Alterar o número de vagas de uma turma.
+
+O sistema deve permitir, ainda, para todos os usuários:
+(ok)• Listar as disciplinas do curso que possuem turmas cadastradas com seus horários
+(ok)• Consultar o número de vagas disponíveis para cada uma das turmas de uma determinada disciplina
+
+Seed
+mais de uma turma por disciplina
